@@ -64,7 +64,7 @@ exports.getTeamById = (req, res) => {
     })
     .catch(err=>{
         res.status(500).send({
-            message: "Error getting team by id: " +res.message
+            message: "Error getting team by id: " +err.message
         })
     });
 };

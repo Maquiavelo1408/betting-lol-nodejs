@@ -1,8 +1,6 @@
 const express = require("express");
 const bodyParse = require("body-parser");
 const cors = require("cors");
-const compression = require('compression');
-var helmet = require('helmet');
 
 const app = express();
 var corsOptions ={
@@ -10,8 +8,6 @@ var corsOptions ={
 };
 
 app.use(cors(corsOptions));
-app.use(compression);
-app.use(helmet);
 
 const db = require("./models");
 console.log(db);
@@ -39,6 +35,8 @@ require('./routes/user.routes.js')(app);
 require('./routes/team.routes.js')(app);
 require('./routes/match.routes.js')(app);
 require("./routes/bet.routes.js")(app);
+require('./routes/collection.routes')(app);
+require('./routes/player.routes')(app);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
@@ -64,7 +62,7 @@ function createTeam(){
     Team.create({
         id: 1,
         name: "T1",
-        color: "red",
+        color: "radial-gradient(circle, rgba(36,0,5,0) 0%, rgba(226,11,75,0.80015756302521) 35%, rgba(226,11,47,1) 100%)",
         region: "KR"
     });
     Team.create({
@@ -76,7 +74,7 @@ function createTeam(){
     Team.create({
         id: 3,
         name: "FNATIC",
-        color: "yellow",
+        color: "rgba(255,87,3,0.1250875350140056) 0%, rgba(255,87,3,0.5956757703081232) 35%, rgba(255,87,3,1) 100%)",
         region: "EUW"
     });
     Player.create({

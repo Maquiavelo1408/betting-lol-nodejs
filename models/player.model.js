@@ -5,6 +5,9 @@ module.exports = (sequelize, Sequelize)=>{
         name: {
             type: Sequelize.STRING
         },
+        role: {
+            type: Sequelize.STRING
+        },
         id_team:{
             type: Sequelize.INTEGER
         }

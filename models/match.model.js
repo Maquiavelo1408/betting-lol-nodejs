@@ -12,6 +12,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         date: {
             type: Sequelize.DATE
+        },
+        match_type:{
+            type: Sequelize.INTEGER
         }
     });
     //Match.hasMany(team);
