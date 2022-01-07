@@ -14,4 +14,13 @@ module.exports = function (app){
 
     app.get("/api/collection/team",
     controller.getTeams);
+
+    app.get("/api/collection/competition",
+    controller.getCompetitions);
+
+    app.get("/api/collection/competition/:region",
+    controller.getCompetitionsByRegion);
+
+    app.post("/api/collection/competition",
+    controller.createCompetition);
 }

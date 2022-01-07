@@ -31,6 +31,7 @@ db.player = require("../models/player.model.js")(sequelize, Sequelize);
 db.team = require("../models/team.model.js")(sequelize, Sequelize);
 db.match = require("../models/match.model.js")(sequelize, Sequelize);
 db.bet = require("../models/bet.model.js")(sequelize, Sequelize);
+db.competition = require("../models/competition.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
     through: "user_roles",
