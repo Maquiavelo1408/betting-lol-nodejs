@@ -1,9 +1,11 @@
 const db = require("../models");
 const Team = db.team;
 const Player = db.player;
+const { Op } = require("sequelize");
 exports.getTeams = (req, res)=>{
-    Team.findAll()
-    .then(team =>{
+    if(Object.keys(req.query).length === 0){
+        Team.findAll()
+        .then(team =>{
         if(!team){
             return res.status(404).send({message: "Teams not founded"});
         }
@@ -15,6 +17,27 @@ exports.getTeams = (req, res)=>{
             message: "Error getting teams: " + err.message
         });
     });
+    }
+    else{
+        region = req.query.region;
+    Team.findAll({
+        where: {
+            region: {
+                [Op.like]:region
+            }
+        }
+    })
+    .then(data => {
+        if(!data){
+            return res.status(404).send({ message: "Teams not founded with the given Region"});
+        }
+        res.json(data);
+    })
+    .catch(err=> {
+        res.status(500).send({message: "Error while executing GetTeamsByRegion " + err.message})
+    });
+    }
+    
 };
 
 exports.getPlayerByTeam = (req, res)=>{
@@ -36,10 +59,12 @@ exports.getPlayerByTeam = (req, res)=>{
 };
 
 exports.getTeamsByRegion = (req, res) =>{
-    const region = req.params.region;
+    region = req.params.region;
     Team.findAll({
         where: {
-            region: region
+            region: {
+                [Op.like]:region
+            }
         }
     })
     .then(data => {

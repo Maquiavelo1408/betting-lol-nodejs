@@ -10,4 +10,5 @@ module.exports = function(app){
     app.get("/api/team", controller.getTeams);
     app.get("/api/team/player/:id", controller.getPlayerByTeam);
     app.get("/api/team/:id", controller.getTeamById);
+    app.get("/api/team/:region", controller.getTeamsByRegion);
 }

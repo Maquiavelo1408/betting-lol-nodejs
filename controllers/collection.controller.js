@@ -33,6 +33,7 @@ exports.getTeams = (req, res) => {
 
 //#region Competitions
 exports.getCompetitions = (req, res) =>{
+    if(Object.keys(req.query).length === 0){
     Competition.findAll().
     then(data=>{
         if(!data){
@@ -43,6 +44,23 @@ exports.getCompetitions = (req, res) =>{
     .catch(err=>{
         res.status(500).send({ message: "Error while gettint the competitions: " + err.message});
     });
+    }
+    else{
+        region = req.query.region;
+    Competition.findAll({
+        where:{
+            region: {
+                [Op.like]: region
+            }
+        }
+    })
+    .then(data =>{
+        res.json(data)
+    })
+    .catch(err=>{
+        res.status(500).send({ message: "Error getting matches: " + err.message})
+    });
+    }
 };
 
 exports.createCompetition = (req, res) => {
