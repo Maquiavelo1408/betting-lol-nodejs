@@ -62,7 +62,10 @@ db.match.belongsTo(db.team,{
     foreignKey:"blue_team"
 });
 
-
+db.match.belongsTo(db.competition,{
+    as: "competition",
+    foreignKey:"id_competition"
+});
 /*
 db.match.belongsTo(db.team, {
     foreignKey: "red_team",

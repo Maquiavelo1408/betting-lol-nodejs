@@ -7,7 +7,9 @@ exports.createMatch = (req, res) => {
     Match.create({
         blue_team: req.body.blue_team,
         red_team: req.body.red_team,
-        date: req.body.date
+        date: req.body.date,
+        match_type: req.body.match_type,
+        id_competition: req.body.id_competition
     })
     .then(data=>{
         if(!data){

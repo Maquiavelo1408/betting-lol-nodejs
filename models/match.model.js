@@ -15,6 +15,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         match_type:{
             type: Sequelize.INTEGER
+        },
+        id_competition:{
+            type: Sequelize.INTEGER
         }
     });
     //Match.hasMany(team);
