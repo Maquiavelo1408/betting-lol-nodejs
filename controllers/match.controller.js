@@ -1,6 +1,7 @@
 const db = require("../models");
 const Match = db.match;
 const Team = db.team;
+const Competition = db.competition;
 const { Op } = require("sequelize");
 
 exports.createMatch = (req, res) => {
@@ -39,7 +40,13 @@ exports.getMatchByDate = (req, res) => {
             required: true,
             model: Team,
             as: "team2"
-        }]
+        },
+        {
+            required: true,
+            model: Competition,
+            as: "competition"
+        }
+    ]
     })
     .then(data =>{
         res.json(data)
