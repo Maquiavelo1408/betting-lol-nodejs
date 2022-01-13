@@ -2,6 +2,7 @@ const db = require("../models");
 const Team = db.team;
 const Competition = db.competition;
 const { Op } = require("sequelize");
+const { response } = require("express");
 //#region Teams
 exports.createTeam = (req, res)=>{
     Team.create({
@@ -27,6 +28,34 @@ exports.getTeams = (req, res) => {
     })
     .catch(err=>{
         res.status(500).send({ message: "Error while getting the teams " + err.message});
+    });
+};
+
+exports.updateTeam = (req, res) => {
+    Team.update(
+        {
+            name: req.body.name,
+            color: req.body.color,
+            region: req.body.region
+        },
+        {
+            where: { id: req.body.id}
+        }
+    )
+    .then(() =>{
+        return Team.findOne({
+            where:{
+                id: req.body.id
+            }
+        })
+    }
+    )
+    .then((data)=>{
+        res.json(data);
+    }
+    )
+    .catch(err=>{
+        res.status(500).send({message: "Error updating team: " + err.message});
     });
 };
 //#endregion

@@ -20,4 +20,6 @@ module.exports = function (app){
 
     app.post("/api/collection/competition",
     controller.createCompetition);
+    app.put("/api/collection/team",
+    controller.updateTeam);
 }
