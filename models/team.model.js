@@ -6,8 +6,11 @@ module.exports = (sequelize, Sequelize) => {
         name: {
             type: Sequelize.STRING
         },
-        color: {
+        primary_color: {
             type: Sequelize.STRING
+        },
+        secondary_color: {
+            type: Sequelize.STRING,
         },
         region: {
             type: Sequelize.STRING

@@ -7,7 +7,8 @@ const { response } = require("express");
 exports.createTeam = (req, res)=>{
     Team.create({
         name: req.body.name,
-        color: req.body.color,
+        primary_color: req.body.primary_color,
+        secondary_color: req.body.secondary_color,
         region: req.body.region
     })
     .then(data=>{
@@ -35,7 +36,8 @@ exports.updateTeam = (req, res) => {
     Team.update(
         {
             name: req.body.name,
-            color: req.body.color,
+            primary_color: req.body.primary_color,
+            secondary_color: req.body.secondary_color,
             region: req.body.region
         },
         {
@@ -56,6 +58,20 @@ exports.updateTeam = (req, res) => {
     )
     .catch(err=>{
         res.status(500).send({message: "Error updating team: " + err.message});
+    });
+};
+
+exports.deleteTeam = (req, res) =>{
+    Team.destroy({
+        where:{
+            id: req.params.id
+        }
+    })
+    .then(data=>{
+        res.json(data);
+    })
+    .catch(err=>{
+        res.status(500).send({message: "Error deleting the team: " + err.message});
     });
 };
 //#endregion

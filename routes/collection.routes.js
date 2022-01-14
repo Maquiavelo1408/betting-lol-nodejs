@@ -22,4 +22,6 @@ module.exports = function (app){
     controller.createCompetition);
     app.put("/api/collection/team",
     controller.updateTeam);
+    app.delete("/api/collection/team/:id",
+    controller.deleteTeam);
 }
