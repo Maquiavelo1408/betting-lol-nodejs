@@ -1,6 +1,9 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
 
+
+
+
 module.exports = function(app) {
   const router = require("express").Router();
   app.use(function(req, res, next) {
@@ -33,4 +36,10 @@ module.exports = function(app) {
   app.put("/api/test/user/:id",
   [authJwt.verifyToken],
   controller.updateUser);
+
+  app.post("/api/send-email",
+  controller.sendEmail);
+  app.get("api/verifyEmail",
+  controller.verifyEmail);
 };
+

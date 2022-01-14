@@ -1,6 +1,10 @@
 const express = require("express");
 const bodyParse = require("body-parser");
 const cors = require("cors");
+var flash = require('express-flash');
+var session = require('express-session');
+var bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
 
 const app = express();
 var corsOptions ={
@@ -42,6 +46,11 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
+
+
+
+
+
 
 function initial(){
     Role.create({
