@@ -37,9 +37,5 @@ module.exports = function(app) {
   [authJwt.verifyToken],
   controller.updateUser);
 
-  app.post("/api/send-email",
-  controller.sendEmail);
-  app.get("api/verifyEmail",
-  controller.verifyEmail);
 };
 

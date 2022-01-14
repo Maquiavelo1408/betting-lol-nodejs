@@ -41,6 +41,7 @@ require('./routes/match.routes.js')(app);
 require("./routes/bet.routes.js")(app);
 require('./routes/collection.routes')(app);
 require('./routes/player.routes')(app);
+require('./routes/verification.routes')(app);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

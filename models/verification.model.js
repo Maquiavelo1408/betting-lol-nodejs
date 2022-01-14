@@ -1,3 +1,4 @@
+const { sequelize, Sequelize}= require(".");
 module.exports = (sequelize, Sequelize)=>{
     const Verification = sequelize.define("verifications",{
         email: {
@@ -10,5 +11,6 @@ module.exports = (sequelize, Sequelize)=>{
             type: Sequelize.STRING,
             defaultValue: '0'
         }
-    })
+    });
+    return Verification;
 }
