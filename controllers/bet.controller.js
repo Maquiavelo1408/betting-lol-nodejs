@@ -7,52 +7,52 @@ const { Op } = require("sequelize");
 exports.createBet = async (req, res)=>{
     betBody = req.body;
     newBalance = 0.0;
-    Bet.findOne({
+    try{
+    const bet = await Bet.findOne({
         where: {
             [Op.and]: [
                 {match_id: betBody.matchId},
                 {user_id: betBody.userId}
             ]
         }
-    }).then(data=>{
-        if(data){
-            return res.status(500).send({message: "Bet already made for this match"});
-        }
+    }).catch((err)=> {
+        throw { message: "Error finding the bet: " + err.message};
     });
-    balnce = await User.findOne({
-        where:{
+    if(bet){
+        throw { message: "Bet already made for this match."};
+    }
+    const user = await User.findOne({
+        where: {
             id: betBody.userId
         }
-    })
-    .then(data=>{
-        if(data.balance < betBody.betAmount){
-            return res.status(500).send({ message: "Not enough balance to make that bet."});
-        }
-        return data.balance;
-    })
-    .catch(err=>{
-        return res.status(500).send({ message : "Error getting the user in the bet creation: " + err.message})
+    }).catch((err)=>{
+        throw { message: "Error finding the user: " + err.message};
     });
-    Bet.create({
+    if(user.balance < betBody.betAmount){
+        throw { message: "Not enough balance to make that bet."};
+    }
+    await Bet.create({
         match_id: betBody.matchId,
         bet_amount: betBody.betAmount,
         selected_winner: betBody.teamSelect,
         user_id: betBody.userId
     })
-    .then(data=>{
-        res.json(data)
-    })
-    .catch(err=>{
-        return res.status(500).send({ message: "Error creating the bet: " + err.message})
+    .catch((err)=>{
+        throw { message: "Error creating the bet: " + err.message};
     });
-    newBalance = balnce - betBody.betAmount;
+    const balance = user.balance - betBody.betAmount;
     User.update(
-        { balance: newBalance},
+        { balance: balance},
         { where: {id: betBody.userId}}
     )
     .catch(err=>{
         res.status(500).send({ message: "Error getting user: " + err.message})
     });
+    res.status(200).send({ message: "Bet created successfully."});
+}
+catch(errror){
+    res.status(500).json({ message: errror.message});
+}
 };
 
 exports.getBetRate = async (req, res)=>{
