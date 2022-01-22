@@ -34,6 +34,7 @@ db.bet = require("../models/bet.model.js")(sequelize, Sequelize);
 db.competition = require("../models/competition.model.js")(sequelize, Sequelize);
 db.verification = require("../models/verification.model.js")(sequelize, Sequelize);
 db.secondbet = require("../models/secondary_bet.model.js")(sequelize, Sequelize);
+db.result = require("../models/results.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
     through: "user_roles",

@@ -18,6 +18,13 @@ module.exports = (sequelize, Sequelize) => {
         },
         id_competition:{
             type: Sequelize.INTEGER
+        },
+        result: {
+            type: Sequelize.BOOLEAN
+        },
+        match_link:{
+            type: Sequelize.STRING,
+            defaultValue: false
         }
     });
     //Match.hasMany(team);
