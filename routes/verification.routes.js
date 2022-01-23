@@ -13,9 +13,12 @@ module.exports = function(app) {
     );
     next();
   });
-  app.post("/api/send-email",
+  app.post("/api/auth/send-email",
   controller.sendEmail);
   
-  app.get("/api/verifyEmail",
+  app.get("/api/auth/verifyEmail",
   controller.verifyEmail);
+
+  app.post("/api/auth/createVerification",
+  controller.createVerification);
 };
